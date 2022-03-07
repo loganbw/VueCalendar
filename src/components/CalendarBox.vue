@@ -1,5 +1,6 @@
 <template>
   <div class="calendarBox">
+      
     <table id="calendarGrid" name="calendar">
       <tr v-for="(weekday, index) in DaysOfTheWeek" class="weekday">
         {{
@@ -18,9 +19,16 @@
       </tr>
     </table>
   </div>
+  <p>
+      {{firstDayTest}}
+      </p>
 </template>
 <script>
 export default {
+    props:{
+        firstDayTest: Date,
+        daysInMonthTest: Number
+    },
   inject: [
     "numberOfBoxes",
     "year",
@@ -34,8 +42,6 @@ export default {
       numberOfBox: this.numberOfBoxes,
       thisYear: this.year,
       daysOfTheWeek: this.DaysOfTheWeek,
-      firstDay: this.firstDayOfMonth,
-      daysInMonth: this.daystoMonth,
       inDateRange: false,
       days: [],
       isActive: false,
@@ -48,7 +54,7 @@ export default {
   methods: {
     checkForStartDay(day) {
       this.setActiveDay(day);
-      if (day >= this.firstDay.getDay() && day <= this.daysInMonth + 1) {
+      if (day >= this.firstDayTest.getDay() && day <= this.daysInMonthTest + 1) {
         return day;
       }
     },

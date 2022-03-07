@@ -130,7 +130,7 @@ export default {
     <h2 class="year">{{ year }}</h2>
   </header>
   <main>
-    <CalendarBox />
+    <CalendarBox :first-day-test="this.firstDayOfMonth"  :days-in-month-test="this.daysInMonths[this.month]"/>
   </main>
 </template>
 

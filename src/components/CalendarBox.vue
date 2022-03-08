@@ -29,10 +29,10 @@ export default {
     firstDayTest: Date,
     daysInMonthTest: Number,
     thisMonth: Number,
+    thisYear: Number
   },
   inject: [
     "numberOfBoxes",
-    "year",
     "DaysOfTheWeek",
     "firstDayOfMonth",
     "daystoMonth",
@@ -41,7 +41,6 @@ export default {
   data() {
     return {
       numberOfBox: this.numberOfBoxes,
-      thisYear: this.year,
       daysOfTheWeek: this.DaysOfTheWeek,
       inDateRange: false,
       days: [],
@@ -53,7 +52,9 @@ export default {
       test: 0,
       resetDay: false,
       savedMonth: this.thisMonth,
-      activeMonth: true
+      savedYear: this.thisyear,
+      activeMonth: true,
+      activeYear: true
     };
   },
   mounted() {
@@ -62,8 +63,8 @@ export default {
   },
   methods: {
     test1(index){
-      console.log(this.daysInMonthTest)
-      if(index -1 == this.today  &&  this.activeMonth)
+      //test for year too
+      if(index -1 == this.today  &&  this.activeMonth && this.activeYear)
          return this.isActive = true;
     },
     checkForStartDay(isday) {
@@ -112,13 +113,18 @@ export default {
       this.days = [];
       this.loadDayArray();
     },
-    thisMonth(event, old){
-        console.log(event + ' ' + old)
+    thisMonth(event){
         console.log(this.savedMonth)
         if(event != this.savedMonth)
           this.activeMonth = false
         else this.activeMonth = true
 
+    },
+    thisYear(event)
+    {
+       if(event != this.savedYear)
+          this.activeYear = false
+        else this.activeYear = true
     }
   },
 };

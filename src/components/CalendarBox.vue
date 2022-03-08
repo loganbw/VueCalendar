@@ -1,7 +1,6 @@
 <template>
-  <div class="calendarBox">
-      
-    <table id="calendarGrid" name="calendar">
+  <div class="calendarBox" >
+    <table id="calendarGrid" name="calendar" :load=" checkForStartDay(index)">
       <tr v-for="(weekday, index) in DaysOfTheWeek" class="weekday">
         {{
           weekday
@@ -10,32 +9,32 @@
       <tr
         v-for="(box, index) in numberOfBoxes"
         :class="isActive ? 'boxActive' : 'box'"
-        :key="boxKey"
         :id="index"
+        ref="test"
+        
       >
-        <td v-if="checkForStartDay(index) <= numberOfBoxes">
-          {{ box - 2 }}
-        </td>
+        {{
+          displayDate(index)
+        }}
+       
       </tr>
     </table>
   </div>
-  <p>
-      {{firstDayTest}}
-      </p>
 </template>
 <script>
+let t = 1;
 export default {
-    props:{
-        firstDayTest: Date,
-        daysInMonthTest: Number
-    },
+  props: {
+    firstDayTest: Date,
+    daysInMonthTest: Number,
+  },
   inject: [
     "numberOfBoxes",
     "year",
     "DaysOfTheWeek",
     "firstDayOfMonth",
     "daystoMonth",
-    "day",
+    "day"
   ],
   data() {
     return {
@@ -49,20 +48,48 @@ export default {
       boxClass: "box",
       boxClassActive: "boxActive",
       boxKey: 0,
+      test: 0,
+      resetDay: false,
     };
   },
+  mounted() {
+    this.loadDayArray();
+  },
   methods: {
-    checkForStartDay(day) {
-      this.setActiveDay(day);
-      if (day >= this.firstDayTest.getDay() && day <= this.daysInMonthTest + 1) {
-        return day;
-      }
-    },
-    setActiveDay(day) {
-      if (day === this.today) return (this.isActive = true);
+    checkForStartDay(isday) {
+       if (isday === this.today) return (this.isActive = true);
       else {
         return (this.isActive = false);
       }
+    },
+    loadDayArray() {
+      for (let index = 0; index <= this.daysInMonthTest; index++) {
+        this.days.push(index);
+      }
+      console.log(this.days.length)
+    },
+    updateDay() {
+      return (this.day = this.day + 1);
+    },
+    logIt(item) {
+      console.log(item);
+    },
+    displayDate(index) {
+       //this.checkForStartDay(index)
+      if (index >= this.firstDayTest.getDay()) {
+
+        if (t < this.days.length) {
+          return t++;
+        }
+      }
+    },
+  },
+  watch: {
+    daysInMonthTest() {
+      t = 1;
+      this.resetDay = false;
+      this.days = [];
+      this.loadDayArray();
     },
   },
 };
@@ -70,7 +97,7 @@ export default {
 <style>
 .boxActive {
   border: 2px solid black;
-  padding: 3rem;
+  padding: 2rem;
   background-color: red;
 }
 .boxActive:hover {

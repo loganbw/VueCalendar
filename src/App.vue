@@ -25,7 +25,7 @@ const daysInMonths = [
 ];
 export default {
   components: {
-    CalendarBox: CalendarBox,
+    CalendarBox,
   },
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
       monthString: "",
       weekString: [],
       firstDayOfMonth: getFirstDayOfMonth(year, month),
-      numberOfBoxes: 35,
+      numberOfBoxes: 42,
       daystoMonth: daysInMonths[month],
     };
   },
@@ -71,6 +71,7 @@ export default {
   methods: {
     UpdateAndShowMonth() {
       this.monthString = this.months[this.month];
+      console.log(day);
     },
     previousMonth() {
       if (this.month > 0) {
@@ -90,7 +91,7 @@ export default {
         this.month++;
         this.monthString = this.months[this.month];
         this.firstDayOfMonth = getFirstDayOfMonth(this.year, this.month);
-        console.log(this.firstDayOfMonth);
+        this.daystoMonth = this.daysInMonths[this.month];
       } else {
         this.month = 0;
         this.monthString = this.months[this.month];
@@ -130,7 +131,7 @@ export default {
     <h2 class="year">{{ year }}</h2>
   </header>
   <main>
-    <CalendarBox :first-day-test="this.firstDayOfMonth"  :days-in-month-test="this.daysInMonths[this.month]"/>
+    <CalendarBox :first-day-test="this.firstDayOfMonth"  :days-in-month-test=" this.daystoMonth"/>
   </main>
 </template>
 
@@ -156,7 +157,7 @@ export default {
 }
 .box {
   border: 2px solid black;
-  padding: 3rem;
+  padding: 1rem;
   background-color: grey;
 }
 .box:hover {

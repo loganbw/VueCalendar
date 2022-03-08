@@ -8,10 +8,11 @@
       </tr>
       <tr
         v-for="(box, index) in numberOfBoxes"
-        :class="isActive ? 'boxActive' : 'box'"
+        :class="test1(index) ? 'boxActive' : 'box'"
         :id="index"
         :key="index"
         ref="test"
+        
         
       >
         {{
@@ -27,6 +28,7 @@ export default {
   props: {
     firstDayTest: Date,
     daysInMonthTest: Number,
+    thisMonth: Number,
   },
   inject: [
     "numberOfBoxes",
@@ -50,6 +52,8 @@ export default {
       boxKey: 0,
       test: 0,
       resetDay: false,
+      savedMonth: this.thisMonth,
+      activeMonth: true
     };
   },
   mounted() {
@@ -58,10 +62,9 @@ export default {
   },
   methods: {
     test1(index){
-      console.log(index)
-      if(index + 1 == this.today)
+      console.log(this.daysInMonthTest)
+      if(index -1 == this.today  &&  this.activeMonth)
          return this.isActive = true;
-      else return this.active = false
     },
     checkForStartDay(isday) {
       if (isday === this.today) return (this.isActive = true);
@@ -109,6 +112,14 @@ export default {
       this.days = [];
       this.loadDayArray();
     },
+    thisMonth(event, old){
+        console.log(event + ' ' + old)
+        console.log(this.savedMonth)
+        if(event != this.savedMonth)
+          this.activeMonth = false
+        else this.activeMonth = true
+
+    }
   },
 };
 </script>

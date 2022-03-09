@@ -99,12 +99,6 @@ export default {
         this.year++;
       }
     },
-    highlightToday(days) {
-      if (days == this.day && month == this.month) {
-        this.todayActive = true;
-        return { boxActive: this.todayActive };
-      }
-    },
     log(item) {
       console.log(item);
     },
@@ -120,7 +114,7 @@ export default {
       day: this.day,
     };
   },
-  props:["first-day-test", "days-in-month-test", "this-month" , "this-year"]
+  props: ["first-day-test", "days-in-month-test", "this-month", "this-year"],
 };
 </script>
 
@@ -132,7 +126,12 @@ export default {
     <h2 class="year">{{ year }}</h2>
   </header>
   <main>
-    <CalendarBox :first-day-test="this.firstDayOfMonth"  :days-in-month-test=" this.daystoMonth" :this-month="this.month" :this-year="this.year"/>
+    <CalendarBox
+      :first-day-test="this.firstDayOfMonth"
+      :days-in-month-test="this.daystoMonth"
+      :this-month="this.month"
+      :this-year="this.year"
+    />
   </main>
 </template>
 

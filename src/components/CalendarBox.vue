@@ -12,8 +12,6 @@
         :id="index"
         :key="index"
         ref="test"
-        
-        
       >
         {{
           displayDate(index)
@@ -29,7 +27,7 @@ export default {
     firstDayTest: Date,
     daysInMonthTest: Number,
     thisMonth: Number,
-    thisYear: Number
+    thisYear: Number,
   },
   inject: [
     "numberOfBoxes",
@@ -54,7 +52,7 @@ export default {
       savedMonth: this.thisMonth,
       savedYear: this.thisyear,
       activeMonth: true,
-      activeYear: true
+      activeYear: true,
     };
   },
   mounted() {
@@ -62,10 +60,10 @@ export default {
     this.checkRef;
   },
   methods: {
-    test1(index){
+    test1(index) {
       //test for year too
-      if(index -1 == this.today  &&  this.activeMonth && this.activeYear)
-         return this.isActive = true;
+      if (index - 1 == this.today && this.activeMonth && this.activeYear)
+        return (this.isActive = true);
     },
     checkForStartDay(isday) {
       if (isday === this.today) return (this.isActive = true);
@@ -113,19 +111,15 @@ export default {
       this.days = [];
       this.loadDayArray();
     },
-    thisMonth(event){
-        console.log(this.savedMonth)
-        if(event != this.savedMonth)
-          this.activeMonth = false
-        else this.activeMonth = true
-
+    thisMonth(event) {
+      console.log(this.savedMonth);
+      if (event != this.savedMonth) this.activeMonth = false;
+      else this.activeMonth = true;
     },
-    thisYear(event)
-    {
-       if(event != this.savedYear)
-          this.activeYear = false
-        else this.activeYear = true
-    }
+    thisYear(event) {
+      if (event != this.savedYear) this.activeYear = false;
+      else this.activeYear = true;
+    },
   },
 };
 </script>

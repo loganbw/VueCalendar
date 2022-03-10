@@ -16,13 +16,19 @@
         {{
           displayDate(index)
         }}
+        
+        <!-- <ButtonEvent  /> -->
       </tr>
     </table>
   </div>
 </template>
 <script>
+import ButtonEvent from "./ButtonEvent.vue"
 let t = 0;
 export default {
+   components: {
+    ButtonEvent,
+  },
   props: {
     firstDayTest: Date,
     daysInMonthTest: Number,
@@ -53,6 +59,7 @@ export default {
       savedYear: this.thisyear,
       activeMonth: true,
       activeYear: true,
+
     };
   },
   mounted() {

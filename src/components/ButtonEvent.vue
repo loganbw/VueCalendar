@@ -1,6 +1,7 @@
 <template>
+    <button>  </button>
 </template>
 <script>
-<script>
+</script>
 <styles>
-<styles>
+</styles>
